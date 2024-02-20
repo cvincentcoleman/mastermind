@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 
-from openai import AsyncOpenAI
+from openai import AsyncOpenAI, audio
 import os
+from scipy.io.wavfile import write
 from dotenv import load_dotenv
+import sounddevice as sd
 import asyncio
 
 # pull this from my .env file
@@ -14,19 +16,43 @@ client = AsyncOpenAI(
     api_key=os.getenv("OPENAI_API_KEY"),
 )
 
-fileName = input("Enter the file: ")
-prompt = input("Enter your prompt: ")
+def giveCommand():
 
+    fs = 44100  # Sample rate
+    seconds = 5  # Duration of recording
+
+    myRecording = sd.rec(int(seconds * fs), samplerate=fs, channels=1)
+
+    print("listening...")
+    # sd.wait()  # Wait until recording is finished
+    input("Press Enter to stop recording")
+    sd.stop()
+    write('command.wav', fs, myRecording)  # Save as WAV file
+
+    print("done")
+
+async def transcribe():
+    audio_file= open("command.wav", "rb")
+    transcript = await client.audio.transcriptions.create(model="whisper-1", file=audio_file)
+    return transcript.text
 
 
 async def main() -> None:
+
+    fileName = input("Enter the file: ")
+
+    giveCommand()
+
+    command = await transcribe()
+    print("")
+    print("Command: " + command)
 
     # Read the React Native file into a string
     with open(fileName, 'r') as file:
         file_content = file.read()
 
     # Define the modification you want to make
-    modification_prompt = f"{file_content}\n\n# Now, modify the above code to {prompt}.\n\n Include the whole file. ONLY include code in your response."
+    modification_prompt = f"{file_content}\n\n# Now, modify the above code by with the following request: {command}.\n\n Include the whole file. ONLY include code in your response."
 
     print("")
     print("Working on that...")
