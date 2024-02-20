@@ -22,3 +22,5 @@ function mastermind() {
 ```
 
 then make it callable by running `chmod +x mastermind.py`
+
+then add to source path `export PATH=$PATH:$HOME/Documents/GitHub/mastermind` in .zshrc
