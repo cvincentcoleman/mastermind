@@ -47,6 +47,8 @@ async def main() -> None:
     print("")
     print("Command: " + command)
 
+    os.remove("command.wav")
+
     # Read the React Native file into a string
     with open(fileName, 'r') as file:
         file_content = file.read()
