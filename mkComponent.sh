@@ -14,6 +14,7 @@ componentName="${fileName%.tsx}"
 # Write 'hotdog' to the file
 cat << EOF > "$1"
 import { StyleSheet, View } from "react-native"
+import { FunctionComponent } from "react"
 
 interface ${componentName}Props {
 

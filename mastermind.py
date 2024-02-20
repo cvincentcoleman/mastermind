@@ -63,6 +63,10 @@ async def main() -> None:
         messages=[
             {
                 "role": "user",
+                "content": "When writing code, please do not use inline styles for React Native. Instead, use the StyleSheet API.",
+            },
+            {
+                "role": "user",
                 "content": modification_prompt,
             }
         ],
