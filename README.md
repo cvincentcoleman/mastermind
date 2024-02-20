@@ -15,8 +15,10 @@ Once you've done that add this to your `.zshrc`
 
 ```
 function mastermind() {
-  source {INSERT_PATH_TO_DIRECTORY}/bin/activate
+  source {INSERT_PATH_TO_DIRECTORY}/.venv/bin/activate
   mastermind.py
   deactivate
 }
 ```
+
+then make it callable by running `chmod +x mastermind.py`

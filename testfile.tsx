@@ -2,14 +2,14 @@ import { FunctionComponent } from "react";
 import { Pressable, StyleSheet } from "react-native";
 import Text from "./Text";
 
-interface ChipProps {
+interface ButtonProps {
   label: string;
   onPress: () => void;
   prefix?: JSX.Element;
   outline?: boolean;
 }
 
-const Chip: FunctionComponent<ChipProps> = ({ label, onPress, prefix, outline = false }) => {
+const Button: FunctionComponent<ButtonProps> = ({ label, onPress, prefix, outline = false }) => {
   const styles = createStyles(outline);
   return (
     <Pressable style={styles.container} onPress={onPress}>
@@ -35,4 +35,4 @@ const createStyles = (outline: boolean) => StyleSheet.create({
   }
 });
 
-export default Chip;
+export default Button;
