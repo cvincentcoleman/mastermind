@@ -19,7 +19,7 @@ client = AsyncOpenAI(
 def giveCommand():
 
     fs = 44100  # Sample rate
-    seconds = 5  # Duration of recording
+    seconds = 15  # Duration of recording
 
     myRecording = sd.rec(int(seconds * fs), samplerate=fs, channels=1)
 
